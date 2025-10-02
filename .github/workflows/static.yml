@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Geolocation — Safe Demo (Consent Only)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 1rem; max-width: 700px; }
+      pre { background:#f5f5f5; padding:1rem; border-radius:6px; }
+    </style>
+  </head>
+  <body>
+    <h1>Geolocation — Safe Demo</h1>
+    <p><strong>Consent required:</strong> Only run this on your device or a device where you have explicit permission.</p>
+    <button id="get">Get my location (consent required)</button>
+    <div id="out"></div>
+
+    <script>
+      document.getElementById('get').addEventListener('click', function() {
+        const out = document.getElementById('out');
+        out.innerHTML = 'Requesting location...';
+        if (!navigator.geolocation) {
+          out.innerHTML = 'Geolocation not supported.';
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(function(position) {
+          // Safe: show coordinates locally only
+          out.innerHTML = `
+            <h3>Location (display only)</h3>
+            <pre>Latitude:  ${position.coords.latitude}
+Longitude: ${position.coords.longitude}
+Accuracy:  ${position.coords.accuracy} meters
+Timestamp: ${new Date(position.timestamp).toLocaleString()}</pre>
+            <p>Nothing here is sent to any server.</p>
+          `;
+        }, function(err) {
+          out.innerHTML = 'Error: ' + (err.message || 'permission denied');
+        }, {
+          enableHighAccuracy: true,
+          maximumAge: 0
+        });
+      });
+    </script>
+  </body>
