@@ -1,0 +1,37 @@
+MIT License
+
+Copyright (c) 2025 Parveez C.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, subject to the following conditions:
+
+... [standard MIT text here] ...
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND...
+
+---------------------------------------------------------------------
+RESPONSIBLE USE ADDENDUM (APPLIES IN ADDITION TO THE MIT LICENSE)
+
+By using, copying, or redistributing this repository (or derivatives), you
+agree to the following additional conditions:
+
+1. Educational Use Only: This repository is intended for research, education,
+   and defensive security awareness. It must not be used to covertly obtain
+   other people's location data without explicit, documented consent.
+
+2. Consent & Notice: Any demonstration that accesses or records location data
+   must be run only on devices for which you have clear, informed consent,
+   and where the subject has been notified of the scope and purpose.
+
+3. No Malicious Deployment: You must not deploy code from this repository to
+   capture location data from visitors to a website without explicit
+   opt-in by those visitors and lawful authority.
+
+4. Liability & Compliance: You are responsible for ensuring your use complies
+   with local laws and regulations. If in doubt, consult legal counsel.
+
+Failure to follow these Responsible Use terms may result in termination of
+the license grant provided above.

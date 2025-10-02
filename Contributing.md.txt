@@ -1,0 +1,8 @@
+# Contributing
+
+Thanks for considering contributing. Please follow these rules:
+
+1. This repo is for educational work only. Do not submit code intended to covertly collect others' locations.
+2. All contributions must include an ethical/consent section explaining how the change preserves privacy and user consent.
+3. If you discover a security issue, follow `SECURITY.md` to report it.
+4. Use clear, well-commented code. Prefer safe demo patterns (display only) for public pages.

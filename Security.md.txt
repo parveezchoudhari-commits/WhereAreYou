@@ -1,0 +1,16 @@
+# Security & Responsible-Disclosure
+
+If you believe this repository contains a security issue that could be abused, please open a GitHub issue (private or public) or contact [cparvez@live.com].
+
+## Mitigations & defensive guidance for developers
+- Do not store precise location data unless you have consent, a clear retention policy, and secure storage (encrypted at rest).
+- Minimize precision: only collect and store the precision needed for the use case; consider rounding or coarsening coordinates.
+- Use short retention: delete precise location records as soon as they are no longer needed.
+- Use explicit opt-in UIs and store consent records alongside any collected data.
+- Secure endpoints: use TLS, require authentication, and log access to location endpoints.
+- Audit third-party libraries and server code that process location.
+
+## For users who want to protect themselves
+- Use browser settings to block location access per-site.
+- Use a VPN to hide IP-derived location information.
+- Regularly review site permissions in your browser and revoke access when not needed.
