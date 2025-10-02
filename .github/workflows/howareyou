@@ -1,0 +1,85 @@
+name: Publish GitHub Pages (safe-demo)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: github-pages
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Prepare public/ for Pages
+        run: |
+          set -e
+          rm -rf public
+          mkdir -p public
+
+          # 1) If safe-demo is a single file at repo root (no extension)
+          if [ -f "safe-demo" ]; then
+            echo "Found file 'safe-demo' — publishing as public/index.html"
+            cp safe-demo public/index.html
+            exit 0
+          fi
+
+          # 2) If safe-demo.html exists
+          if [ -f "safe-demo.html" ]; then
+            echo "Found file 'safe-demo.html' — publishing as public/index.html"
+            cp safe-demo.html public/index.html
+            exit 0
+          fi
+
+          # 3) If safe-demo is a directory, publish its contents
+          if [ -d "safe-demo" ]; then
+            echo "Found directory 'safe-demo/' — copying contents to public/"
+            cp -r safe-demo/* public/ || true
+            cp -r safe-demo/.[!.]* public/ 2>/dev/null || true
+          else
+            # 4) Fallback: copy repo root files (avoid .git)
+            echo "No safe-demo file or folder found — copying repo root into public/"
+            shopt -s extglob || true
+            # Copy visible files except .git
+            for f in *; do
+              if [ "$f" != ".git" ] && [ -e "$f" ]; then
+                cp -r "$f" public/ 2>/dev/null || true
+              fi
+            done
+          fi
+
+          # Ensure there is a public/index.html so Pages doesn't 404
+          if [ ! -f public/index.html ]; then
+            cat > public/index.html <<'HTML'
+<!doctype html>
+<html>
+  <head><meta charset="utf-8"><title>Location Privacy Demo</title></head>
+  <body>
+    <h1>Location Privacy Demo</h1>
+    <p><a href="safe-demo.html">Open safe demo</a></p>
+  </body>
+</html>
+HTML
+            echo "Added fallback public/index.html"
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
